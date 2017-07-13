@@ -1,0 +1,40 @@
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[user]
+	name = Tek Hudson
+	email = tek.hudson@gmail.com
+[alias]
+	st = status
+	di = diff
+	co = checkout
+	conb = checkout origin/master -b
+	ci = commit
+	cp = cherry-pick
+	br = branch
+	logg = log --decorate --graph --oneline
+	pu = push -u origin
+	puf = push -f
+	puh = push heroku master
+[push]
+	default = current
+[core]
+	editor = emacs
+[merge]
+	conflictstyle = diff3
+[color]
+	ui = true
+[color "branch"]
+       current = yellow reverse
+       local = yellow
+       remote = green
+[color "diff"]
+       meta = yellow bold
+       frag = magenta bold
+       old = red bold
+       new = green bold
+[color "status"]
+       added = green bold
+       changed = yellow
+       untracked = red
