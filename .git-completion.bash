@@ -1,22 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Marketplace
-Explore
- @tekHudson
- Sign out
- Watch 1,726
-  Star 18,855
- Fork 10,796 git/git
- Code  Pull requests 85 Insights
-Branch: master Find file Copy pathgit/contrib/completion/git-completion.bash
-eb37527  on Jul 6
-@gitster gitster Merge branch 'xz/send-email-batch-size'
-115 contributors @gitster @szeder @spearce @felipec @lmarlow @bebarino @johnkeeping @artagnon @trast @tpavlic @corneliusweig @t-b @rikardfalkeborn @dscho @mjg @tlikonen @ralfth @jrn @peff @pclouds @marcows @joshtriplett @jaysoffian @bjorng @foolip @toofishes and others
-RawBlameHistory
-3318 lines (3098 sloc)  69.3 KB
 # bash/zsh completion support for core Git.
 #
 # Copyright (C) 2006,2007 Shawn O. Pearce <spearce@spearce.org>
@@ -3330,15 +3311,3 @@ __git_complete gitk __gitk_main
 if [ Cygwin = "$(uname -o 2>/dev/null)" ]; then
 __git_complete git.exe __git_main
 fi
-© 2017 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-API
-Training
-Shop
-Blog
-About
