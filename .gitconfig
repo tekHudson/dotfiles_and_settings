@@ -20,7 +20,7 @@
 [push]
 	default = current
 [core]
-	editor = emacs
+	editor = nano
 [merge]
 	conflictstyle = diff3
 [color]
