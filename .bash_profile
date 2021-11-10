@@ -1,4 +1,12 @@
 export PATH="$HOME/bin:$PATH"
+
+#
+# Required for OpenSSL to work
+#
+export PATH="/usr/local/opt/openssl@1.0/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/openssl@1.0/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.0/include"
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl@1.0/lib/
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 export DISABLE_SPRING=true
