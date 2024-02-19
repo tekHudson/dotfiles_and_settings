@@ -1,0 +1,93 @@
+{
+    "editor.fontSize": 22,
+    "files.autoSave": "onFocusChange",
+    "files.autoSaveDelay": 100,
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.detectIndentation": true,
+    "files.insertFinalNewline": true,
+    "editor.find.seedSearchStringFromSelection": true,
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.snippetSuggestions": "top",
+    "xml.server.vmargs": "-Xmx512M",
+    "ruby.useLanguageServer": true,
+    "ruby.intellisense": "rubyLocate",
+    "highlight.regex.regexes": [
+
+        {
+            "languageIds": [
+                "c",
+                "cpp",
+                "go",
+                "java",
+                "javascript",
+                "php",
+                "ruby",
+                "rust",
+                "typescript"
+            ],
+            "regexes": [
+                {
+                    "regex": "/\\*[^]*?\\*/|//[^]*?(?:(?<!\\\\)$)",
+                    "regexFlag": "gm",
+                    "regexLimit": 25000,
+                    "regexes": [
+                        {
+                            "index": 0,
+                            "regex": "\\b(TODO)\\b|\\b(TADA)\\b",
+                            "regexFlag": "gmi",
+                            "regexLimit": 25000,
+                            "decorations": [
+                                {
+                                    "index": 1,
+                                    "borderRadius": "4px",
+                                    "fontWeight": "bold",
+                                    "overviewRulerColor": "#FF9900FF",
+                                    "overviewRulerLane": 4,
+                                    "light": {
+                                        "color": "#000000",
+                                        "backgroundColor": "#FF990050",
+                                        "border": "1px solid #FF990090"
+                                    },
+                                    "dark": {
+                                        "color": "#FFFFFF",
+                                        "backgroundColor": "#FF990090",
+                                        "border": "1px solid #FF990050"
+                                    }
+                                },
+                                {
+                                    "index": 2,
+                                    "borderRadius": "4px",
+                                    "fontWeight": "bold",
+                                    "overviewRulerColor": "#FF0000FF",
+                                    "overviewRulerLane": 4,
+                                    "light": {
+                                        "color": "#000000",
+                                        "backgroundColor": "#FF000050",
+                                        "border": "1px solid #FF000090"
+                                    },
+                                    "dark": {
+                                        "color": "#FFFFFF",
+                                        "backgroundColor": "#FF000090",
+                                        "border": "1px solid #FF000050"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "editor.rulers": [
+        80, 120
+    ],
+    "workbench.colorTheme": "semantic-rainbow-no-italics",
+    "workbench.settings.applyToAllProfiles": [
+        "files.trimFinalNewlines",
+        "files.insertFinalNewline"
+    ],
+    "terminal.external.osxExec": "iterm.app",
+    "terminal.integrated.fontSize": 16
+}
