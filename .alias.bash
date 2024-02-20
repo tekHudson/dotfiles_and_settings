@@ -11,7 +11,7 @@ alias dic='git dic'
 alias grp='git grp'
 alias fc='git diff --name-only origin/master...'
 alias rcc='git diff --name-only origin/master... | xargs bin/rubocop'
-alias clbr='git branch --merged >/tmp/merged-branches && subl -w /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
+alias clbr='git branch >/tmp/merged-branches && subl -w /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
 
 ## Front End
 alias febuild='yarn && yarn build && npm i && npm start'
@@ -21,7 +21,12 @@ alias td='tail -f log/development.log'
 alias be='bundle exec'
 alias ber='bundle exec rake'
 alias spec='bin/rails test -v'
+alias rtdb='RAILS_ENV=test rails db:drop db:create db:migrate'
 alias dbreset='bundle exec rake db:drop db:create db:migrate db:seed'
+
+# Kubectl
+alias k='kubectl'
+alias kdp='kubectl describe pod'
 
 ## Unix
 alias ls='ls -G'
