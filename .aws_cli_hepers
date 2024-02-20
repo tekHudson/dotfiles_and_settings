@@ -1,0 +1,139 @@
+# AMAZON WEB SERVICES
+
+# Clear all AWS envars
+# alias aclr='unset AWS_PROFILE AWS_SECRET_ACCESS_KEY AWS_ACCESS_KEY_ID AWS_SESSION_TOKEN KUBECONFIG AWS_REGION AWS_PROFILE AWS_ACCESS_KEY AWS_SECRET_KEY'
+alias aclr='unset AWS_PROFILE KUBECONFIG AWS_REGION'
+
+# Print all AWS and KUBE envars
+alias aenv='env | grep -e AWS -e KUBE'
+
+# Setup envars for the targeted environment
+#   note: ~/.aws/credentials must be updated for this to work
+alias stgsetup='setStgEnv;       setK8sEnv <ADD STUFF HERE>'
+alias trnsetup='setTrnEnv;       setK8sEnv <ADD STUFF HERE>'
+alias puatsetup='setPuatEnv;     setK8sEnv <ADD STUFF HERE>'
+alias pprodsetup='setPreProdEnv; setK8sEnv <ADD STUFF HERE>'
+alias prdsetup='setPrdEnv;       setK8sEnv <ADD STUFF HERE>'
+alias prdescsetup='setPrdEscEnv; setK8sEnv <ADD STUFF HERE>'
+
+setStgEnv() {
+  aclr
+  export AWS_PROFILE=ADD-PROFILE-NAME
+  export KUBECONFIG=~/.kube/config.eks.staging
+}
+
+setTrnEnv() {
+  aclr
+  export AWS_PROFILE=ADD-PROFILE-NAME
+  export KUBECONFIG=~/.kube/config.eks.training
+}
+
+setPuatEnv() {
+  aclr
+  export AWS_PROFILE=ADD-PROFILE-NAME
+  export KUBECONFIG=~/.kube/config.eks.n-aaa
+}
+
+setPreProdEnv() {
+  aclr
+  export AWS_PROFILE=ADD-PROFILE-NAME
+  export KUBECONFIG=~/.kube/config.eks.pre-prod
+}
+
+setPrdEnv() {
+  aclr
+  export AWS_PROFILE=ADD-PROFILE-NAME
+  export KUBECONFIG=~/.kube/config.eks.production
+}
+
+setPrdEscEnv() {
+  aclr
+  export AWS_PROFILE=ADD-PROFILE-NAME
+  export KUBECONFIG=~/.kube/config.eks.production
+}
+
+setK8sEnv() {
+  export AWS_REGION=us-east-1
+  aws eks update-kubeconfig --name $1
+  sts
+}
+
+sts() {
+  aws sts get-caller-identity $@ | tee $$.log
+  rm $$.log
+}
+
+# Get all the available pods
+#   Arg examples: <none>, 'core', 'uniteus-api', 'uniteus-auth'
+kpods() {
+  if [ $# -ge 1 ]
+  then
+      SELECTOR="--selector app=$1"
+  else
+      SELECTOR=""
+  fi
+  kubectl get pods --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' $SELECTOR
+}
+
+# Get logs for the selected app
+#   REQUIRED Arg example: 'core', 'uniteus-api', 'uniteus-auth'
+podlogs() {
+  kubectl logs --selector app=$1
+}
+
+# Get the pod status for the selected app
+#   Arg examples: <none>, 'core', 'uniteus-api', 'uniteus-auth'
+podst() {
+  if [ $# -ge 1 ]
+  then
+    pods= kubectl get pods --selector app=$1
+  else
+    pods= kubectl get pods
+  fi
+
+  pods= read -r -a array <<< $pods
+
+  for podname in "${array[@]}"
+  do
+    kubectl get pod $podname -o custom-columns=NAME:.metadata.name,STATUS_PHASE:.status.phase,STATUS_REASON:.status.reason
+  done
+}
+
+# Connect to a bash terminal for the selected app
+#   REQUIRED Arg example: 'core', 'uniteus-api', 'uniteus-auth'
+kbash() {
+  if [ $# -ge 2 ]
+  then
+    COMMAND=${@:2}
+  else
+    COMMAND='/bin/bash'
+  fi
+
+  kubectl exec -it \
+    $(kubectl get pods -l="app=$1" -o jsonpath='{.items[0].metadata.name}') \
+    -- /bin/bash
+}
+
+# Connect to a bash terminal for the selected app
+#   REQUIRED Arg example: 'core', 'uniteus-api', 'uniteus-auth'
+nkbash() {
+
+  if [ $# -ge 1 ]
+  then
+    PODS= kubectl get pods -l="app=$1" -o jsonpath='{.items[0].metadata.name}'
+  else
+    PODS= kubectl get pods -o jsonpath='{.items[0].metadata.name}'
+  fi
+  print
+
+  if [ $# -ge 2 ]
+  then
+    COMMAND=${@:2}
+  else
+    COMMAND='/bin/bash'
+  fi
+
+  kubectl exec -it \
+    $(kubectl get pods -l="app=$1" -o jsonpath='{.items[0].metadata.name}') \
+    -- $COMMAND
+}
